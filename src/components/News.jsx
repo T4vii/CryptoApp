@@ -1,5 +1,5 @@
 import React from "react";
-import { Select, Typography, Row, Col, Avatar, Card } from "antd";
+import { Typography, Row, Col, Avatar, Card } from "antd";
 import moment from "moment";
 
 import Loader from "./Loader";

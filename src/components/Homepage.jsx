@@ -16,6 +16,10 @@ function Homepage() {
     return <p>Data not available</p>;
   }
 
+  if (isFetching) {
+    return "Loading...";
+  }
+
   return (
     <>
       <Title level={2} className="heading">
