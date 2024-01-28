@@ -50,6 +50,7 @@ function Cryptocurrencies({ simplified }) {
                     className="crypto-img"
                     src={currency.iconUrl}
                     width={30}
+                    alt="Crypto Img"
                   />
                 }
                 hoverable

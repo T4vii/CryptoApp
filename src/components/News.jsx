@@ -7,7 +7,6 @@ import Loader from "./Loader";
 import { useGetCryptoNewsQuery } from "../services/cryptoNewsApi";
 
 const { Text, Title } = Typography;
-const { Option } = Select;
 
 const demoImage =
   "http://coinrevolution.com/wp-content/uploads/2020/06/cryptonews.jpg";
