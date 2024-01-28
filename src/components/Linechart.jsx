@@ -1,21 +1,23 @@
-import React, { useEffect, useRef } from "react";
-
+import React, { useEffect, useMemo, useRef } from "react";
 import { Col, Row, Typography } from "antd";
 import Chart from "chart.js/auto";
-
 import "chartjs-adapter-date-fns";
 import "chartjs-plugin-datalabels";
 
 const { Title } = Typography;
 
 const LineChart = ({ coinHistory, currentPrice, coinName }) => {
-  const coinPrice = [];
+  // Use useMemo to memoize the array and prevent unnecessary re-renders
+  const coinPrice = useMemo(() => {
+    const prices = [];
+    for (let i = 0; i < coinHistory?.data?.sparkline?.length; i += 1) {
+      prices.push(coinHistory?.data?.sparkline[i].price);
+    }
+    return prices;
+  }, [coinHistory?.data?.sparkline]);
+
   const coinTimestamp = [];
   const chartRef = useRef(null);
-
-  for (let i = 0; i < coinHistory?.data?.sparkline?.length; i += 1) {
-    coinPrice.push(coinHistory?.data?.sparkline[i].price);
-  }
 
   for (let i = 0; i < coinHistory?.data?.sparkline?.length; i += 1) {
     coinTimestamp.push(
