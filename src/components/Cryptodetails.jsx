@@ -27,7 +27,7 @@ const { Option } = Select;
 const Cryptodetails = () => {
   const { coinuuid } = useParams();
 
-  const [timeperiod, setTimeperiod] = useState("7d");
+  const [setTimeperiod] = useState("7d");
   const { data, isFetching } = useGetCryptoDetailsQuery(coinuuid);
 
   const coinHistory = data?.data?.coin?.sparkline;
