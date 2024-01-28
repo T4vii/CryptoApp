@@ -17,6 +17,10 @@ a:hover {
   color: var(--pink) !important;
 }
 
+.flex-direction {
+  flex-direction: column;
+}
+
 .app {
   display: flex;
   overflow: hidden;

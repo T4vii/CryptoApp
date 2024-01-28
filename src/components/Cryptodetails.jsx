@@ -185,7 +185,7 @@ const Cryptodetails = () => {
             <p>{HTMLReactParser(cryptoDetails.description)}</p>
           </Title>
         </Row>
-        <Row className="coin-links">
+        <Row className="coin-links flex-direction">
           <Title level={3} className="coin-details-heading">
             {cryptoDetails.name} Links
           </Title>
