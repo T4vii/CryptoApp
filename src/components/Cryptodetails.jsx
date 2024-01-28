@@ -17,10 +17,7 @@ import {
 
 import Loader from "./Loader";
 
-import {
-  useGetCryptoDetailsQuery,
-  useGetCryptoHistoryQuery,
-} from "../services/cryptoApi";
+import { useGetCryptoDetailsQuery } from "../services/cryptoApi";
 
 import Linechart from "./Linechart";
 
