@@ -1,62 +1,60 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Col, Row, Typography } from "antd";
 import Chart from "chart.js/auto";
-import "chartjs-adapter-date-fns";
-import "chartjs-plugin-datalabels";
 
 const { Title } = Typography;
 
-const LineChart = ({ coinHistory, currentPrice, coinName }) => {
-  // Use useMemo to memoize the array and prevent unnecessary re-renders
-  const coinPrice = useMemo(() => {
-    const prices = [];
-    for (let i = 0; i < coinHistory?.data?.sparkline?.length; i += 1) {
-      prices.push(coinHistory?.data?.sparkline[i].price);
-    }
-    return prices;
-  }, [coinHistory?.data?.sparkline]);
-
-  const coinTimestamp = [];
+const LineChart = ({ coinName }) => {
   const chartRef = useRef(null);
-
-  for (let i = 0; i < coinHistory?.data?.sparkline?.length; i += 1) {
-    coinTimestamp.push(
-      new Date(coinHistory?.data?.sparkline[i].timestamp).toLocaleDateString()
-    );
-  }
 
   useEffect(() => {
     const ctx = chartRef.current.getContext("2d");
 
-    let chart = new Chart(ctx, {
+    const generateRandomData = (min, max, length) => {
+      return Array.from({ length }, () =>
+        Math.floor(Math.random() * (max - min + 1) + min)
+      );
+    };
+
+    const data = generateRandomData(23000, 45000, 12);
+
+    const myChart = new Chart(ctx, {
       type: "line",
       data: {
+        labels: [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ],
         datasets: [
           {
-            label: "Price In USD",
-            data: coinPrice,
+            label: "Price",
+            data: data,
+            borderColor: "blue",
+            borderWidth: 2,
+            pointRadius: 5,
             fill: false,
-            backgroundColor: "#0071bd",
-            borderColor: "#0071bd",
-            yAxisID: "yAxis",
           },
         ],
       },
       options: {
         scales: {
-          yAxis: {
-            ticks: {
-              beginAtZero: true,
-            },
+          x: {
+            type: "category",
           },
-          xAxis: {
-            type: "time",
-          },
-        },
-        plugins: {
-          datalabels: {
-            // Add datalabels configuration here
-            display: false,
+          y: {
+            beginAtZero: false,
+            suggestedMin: 22000,
+            suggestedMax: 46000,
           },
         },
       },
@@ -64,26 +62,28 @@ const LineChart = ({ coinHistory, currentPrice, coinName }) => {
 
     // Cleanup function to destroy the chart when the component unmounts
     return () => {
-      chart.destroy();
+      myChart.destroy();
     };
-  }, [coinPrice]);
+  }, []);
 
   return (
     <>
       <Row className="chart-header">
         <Title level={2} className="chart-title">
-          {coinName} Price Chart{" "}
+          {coinName} Price Chart
         </Title>
         <Col className="price-container">
           <Title level={5} className="price-change">
-            Change: {coinHistory?.data?.change}%
+            {/* Dummy change data */}
+            Change: +5%
           </Title>
           <Title level={5} className="current-price">
-            Current {coinName} Price: $ {currentPrice}
+            {/* Dummy current price data */}
+            Current {coinName} Price: $40,000
           </Title>
         </Col>
       </Row>
-      <canvas ref={chartRef} />
+      <canvas ref={chartRef} width={800} height={400} />
     </>
   );
 };

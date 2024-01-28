@@ -32,7 +32,8 @@ const Cryptodetails = () => {
 
   const [timeperiod, setTimeperiod] = useState("7d");
   const { data, isFetching } = useGetCryptoDetailsQuery(coinuuid);
-  const { data: coinHistory } = useGetCryptoHistoryQuery(coinuuid, timeperiod);
+
+  const coinHistory = data?.data?.coin?.sparkline;
 
   console.log("__--___", coinHistory);
 
@@ -127,7 +128,7 @@ const Cryptodetails = () => {
         </p>
       </Col>
       <Select
-        defaultValue="7d"
+        defaultValue="3y"
         className="select-timeperiod"
         placeholder="Select Time Period"
         onChange={(value) => setTimeperiod(value)}
