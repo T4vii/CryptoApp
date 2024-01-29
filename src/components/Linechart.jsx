@@ -11,7 +11,7 @@ const { Title } = Typography;
 const LineChart = ({ coinName }) => {
   const chartRef = useRef(null);
   const { coinuuid } = useParams();
-  const { data, isFetching } = useGetCryptoDetailsQuery(coinuuid);
+  const { data } = useGetCryptoDetailsQuery(coinuuid);
   const coinInfo = data?.data?.coin;
 
   useEffect(() => {
