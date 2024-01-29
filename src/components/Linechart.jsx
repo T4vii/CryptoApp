@@ -1,11 +1,18 @@
 import React, { useEffect, useRef } from "react";
 import { Col, Row, Typography } from "antd";
 import Chart from "chart.js/auto";
+import { useParams } from "react-router-dom";
+import millify from "millify";
+
+import { useGetCryptoDetailsQuery } from "../services/cryptoApi";
 
 const { Title } = Typography;
 
 const LineChart = ({ coinName }) => {
   const chartRef = useRef(null);
+  const { coinuuid } = useParams();
+  const { data, isFetching } = useGetCryptoDetailsQuery(coinuuid);
+  const coinInfo = data?.data?.coin;
 
   useEffect(() => {
     const ctx = chartRef.current.getContext("2d");
@@ -75,11 +82,11 @@ const LineChart = ({ coinName }) => {
         <Col className="price-container">
           <Title level={5} className="price-change">
             {/* Dummy change data */}
-            Change: +5%
+            Change: {coinInfo.change}%
           </Title>
           <Title level={5} className="current-price">
             {/* Dummy current price data */}
-            Current {coinName} Price: $40,000
+            Current {coinName} Price: $ {millify(coinInfo.price)}
           </Title>
         </Col>
       </Row>
